@@ -7,6 +7,7 @@
     "dev": "vite --port 8000",
     "build": "tsc -b && vite build --base=/underground-voxel-viewer-for-laymen/",
     "preview": "vite preview",
+    "codegen": "graphql-codegen --config codegen.yaml",
     "format:fix": "prettier --write src/",
     "format": "prettier --check src/",
     "lint": "eslint src/**/*.{tsx,ts}",
@@ -16,6 +17,7 @@
     "fix": "npm run format:fix && npm run lint:fix"
   },
   "dependencies": {
+    "@apollo/client": "^3.12.11",
     "@fontsource/lato": "^5.1.1",
     "@mantine/core": "^7.16.2",
     "@mantine/dropzone": "^7.16.3",
@@ -28,6 +30,11 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",
+    "@graphql-codegen/cli": "^5.0.4",
+    "@graphql-codegen/introspection": "^4.0.3",
+    "@graphql-codegen/typescript-operations": "^4.4.1",
+    "@graphql-codegen/typescript-react-apollo": "^4.3.2",
+    "@graphql-codegen/typescript-resolvers": "^4.4.2",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "@vitejs/plugin-react-swc": "^3.5.0",

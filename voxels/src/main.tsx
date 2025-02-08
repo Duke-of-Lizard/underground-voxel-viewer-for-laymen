@@ -8,16 +8,20 @@ import '@fontsource/lato/700.css'
 import '@fontsource/lato/900.css'
 import '@mantine/core/styles.css'
 import '@mantine/dropzone/styles.css'
-import { DataProvider } from '@/contexts'
+import { AuthProvider, DataProvider, GraphQlProvider } from '@/contexts'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
-      <MantineProvider theme={theme}>
-        <DataProvider>
-          <AppRouter />
-        </DataProvider>
-      </MantineProvider>
+      <GraphQlProvider>
+        <AuthProvider>
+          <MantineProvider theme={theme}>
+            <DataProvider>
+              <AppRouter />
+            </DataProvider>
+          </MantineProvider>
+        </AuthProvider>
+      </GraphQlProvider>
     </BrowserRouter>
   </StrictMode>,
 )

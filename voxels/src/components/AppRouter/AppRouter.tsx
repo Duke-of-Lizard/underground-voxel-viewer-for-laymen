@@ -5,6 +5,7 @@ import { lazy, Suspense } from 'react'
 const LandingPage = lazy(() => import('@/pages/Landing'))
 const SpecklePage = lazy(() => import('@/pages/Speckle'))
 const UploadPage = lazy(() => import('@/pages/Upload'))
+const AuthPage = lazy(() => import('@/pages/Auth'))
 
 export const AppRouter = () => {
   return (
@@ -14,6 +15,7 @@ export const AppRouter = () => {
           <Route path={`${import.meta.env.BASE_URL}`} element={<LandingPage />} />
           <Route path={`${import.meta.env.BASE_URL}speckle`} element={<SpecklePage />} />
           <Route path={`${import.meta.env.BASE_URL}upload`} element={<UploadPage />} />
+          <Route path={`${import.meta.env.BASE_URL}auth`} element={<AuthPage />} />
         </Route>
       </Routes>
     </Suspense>

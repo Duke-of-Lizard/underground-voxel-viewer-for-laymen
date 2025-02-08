@@ -1,0 +1,34 @@
+
+query getUser {
+  activeUser {
+    id
+    email
+    name
+    bio
+    avatar
+  }
+}
+
+mutation createProject($input: ProjectCreateInput!) {
+  projectMutations {
+    create(input: $input) {
+      id
+    }
+  }
+}
+
+mutation createNewModel($input: CreateModelInput!) {
+  modelMutations {
+    create(input: $input) {
+      id
+    }
+  }
+}
+
+mutation createNewVersion($input: CreateVersionInput!) {
+  versionMutations {
+    create(input: $input) {
+      id
+    }
+  }
+}
