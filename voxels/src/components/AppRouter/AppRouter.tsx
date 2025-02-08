@@ -5,6 +5,7 @@ import {lazy, Suspense} from "react";
 const LandingPage = lazy(() => import('@/pages/Landing'))
 const SpecklePage = lazy(() => import('@/pages/Speckle'))
 const UploadPage = lazy(() => import('@/pages/Upload'))
+const CesiumPage = lazy(() => import('@/pages/Cesium'))
 
 export const AppRouter = () => {
     return (
@@ -14,6 +15,7 @@ export const AppRouter = () => {
                     <Route path='/' element={<LandingPage/>}/>
                     <Route path='/speckle' element={<SpecklePage/>}/>
                     <Route path='/upload' element={<UploadPage/>}/>
+                    <Route path='/cesium' element={<CesiumPage/>}/>
                 </Route>
             </Routes>
         </Suspense>
