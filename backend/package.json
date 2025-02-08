@@ -18,6 +18,7 @@
   "description": "",
   "dependencies": {
     "fs": "^0.0.1-security",
-    "netcdfjs": "^3.0.0"
+    "netcdfjs": "^3.0.0",
+    "utm": "^1.1.1"
   }
 }
