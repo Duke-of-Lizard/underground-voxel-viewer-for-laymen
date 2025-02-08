@@ -11,9 +11,9 @@ export const AppRouter = () => {
     <Suspense fallback={<Loading />}>
       <Routes>
         <Route element={<PageLayout />}>
-          <Route path='/' element={<LandingPage />} />
-          <Route path='/speckle' element={<SpecklePage />} />
-          <Route path='/upload' element={<UploadPage />} />
+          <Route path={`${import.meta.env.BASE_URL}`} element={<LandingPage />} />
+          <Route path={`${import.meta.env.BASE_URL}speckle`} element={<SpecklePage />} />
+          <Route path={`${import.meta.env.BASE_URL}upload`} element={<UploadPage />} />
         </Route>
       </Routes>
     </Suspense>
