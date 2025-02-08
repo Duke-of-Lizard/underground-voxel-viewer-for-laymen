@@ -1,4 +1,3 @@
-
 export const LandingPage = () => {
-    return ("LANDING PAGE")
+  return 'LANDING PAGE'
 }
