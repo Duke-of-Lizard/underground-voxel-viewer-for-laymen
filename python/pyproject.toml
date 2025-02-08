@@ -6,5 +6,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "cfchecker>=4.1.0",
+    "cfunits>=3.3.7",
+    "nctoolkit>=1.2.0",
     "xarray>=2025.1.2",
 ]
