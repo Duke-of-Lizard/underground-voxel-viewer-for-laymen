@@ -1,4 +1,3 @@
-
 export const UploadPage = () => {
-    return ("UPLOAD PAGE")
+  return 'UPLOAD PAGE'
 }

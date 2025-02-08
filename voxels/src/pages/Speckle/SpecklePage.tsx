@@ -1,4 +1,3 @@
-
 export const SpecklePage = () => {
-    return ("SPECKLE PAGE")
+  return 'SPECKLE PAGE'
 }
