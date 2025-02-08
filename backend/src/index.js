@@ -27,10 +27,10 @@ const data = fs.readFileSync(filePath);
 const reader = new NetCDFReader(data);
 
 // List available variables
-console.log(
-  "Variables in NetCDF:",
-  reader.variables.map((v) => v.name)
-);
+// console.log(
+//   "Variables in NetCDF:",
+//   reader.variables.map((v) => v.name)
+// );
 
 // Extract grid dimensions
 const x_dim = reader.dimensions.find((d) => d.name === "x").size;
@@ -48,44 +48,28 @@ function writeVVFile(
   dimensions,
   outputPath
 ) {
-  const [x_dim, y_dim, z_dim] = dimensions;
   const totalVoxels = x_dim * y_dim * z_dim;
-  const bytesPerVoxel = 8; // 2 float32 properties per voxel
-  const bufferSize = 8 + totalVoxels * bytesPerVoxel * 2;
-
-  const buffer = Buffer.alloc(bufferSize); // Correctly allocated buffer
-
-  // Define a safe value range (adjust as needed)
-  const MIN_VALUE = -1e6; // Lower bound for float32
-  const MAX_VALUE = 1e6; // Upper bound for float32
-
-  // Function to sanitize float values
-  function safeFloat(value) {
-    if (isNaN(value) || !isFinite(value)) return 0; // Replace NaN/Infinity with 0
-    return Math.max(MIN_VALUE, Math.min(MAX_VALUE, value)); // Clamp values
-  }
+  const bytesPerVoxel = 8; // 2 properties * 4 bytes each
+  const bufferSize = 8 + totalVoxels * bytesPerVoxel * 2; // 8 bytes header + voxel data
+  const buffer = Buffer.alloc(bufferSize);
 
   // Write magic bytes
   buffer.write("VV", 0, "ascii");
 
-  // Write dimensions as 32-bit integers
-  buffer.writeUInt32LE(x_dim, 2);
-  buffer.writeUInt32LE(y_dim, 6);
-  buffer.writeUInt32LE(z_dim, 10);
+  // Write dimensions (32-bit integers)
+  buffer.writeUInt32LE(dimensions[0], 2);
+  buffer.writeUInt32LE(dimensions[1], 6);
+  buffer.writeUInt32LE(dimensions[2], 10);
 
-  // Write voxel data correctly
-  let offset = 14; // Start writing voxel data after header
-  for (let i = 0; i < totalVoxels; i++) {
-    buffer.writeFloatLE(safeFloat(resistivityData[i] || 0), offset);
-    offset += 4; // Move 4 bytes forward
-
-    buffer.writeFloatLE(safeFloat(clayProbabilityData[i] || 0), offset);
-    offset += 4; // Move 4 bytes forward
+  // Write voxel properties (each voxel has 2 properties, 4 bytes each)
+  for (let i = 0; i < resistivityData.length; i++) {
+    buffer.writeFloatLE(resistivityData[i], 14 + i * 8); // Resistivity
+    buffer.writeFloatLE(clayProbabilityData[i], 18 + i * 8); // Clay probability
   }
 
   // Save file
   fs.writeFileSync(outputPath, buffer);
-  console.log(`Voxel file saved: ${outputPath} (Size: ${buffer.length} bytes)`);
+  console.log(`Voxel file saved: ${outputPath}`);
 }
 
 // Generate `.vv` file
