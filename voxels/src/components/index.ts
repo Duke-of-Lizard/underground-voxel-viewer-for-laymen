@@ -1,4 +1,3 @@
-export * from './App'
 export * from './AppRouter'
 export * from './ErrorBoundary'
 export * from './ErrorMessage'
