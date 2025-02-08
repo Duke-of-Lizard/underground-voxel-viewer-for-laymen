@@ -37,7 +37,7 @@ export const UploadCard = () => {
   }
 
   return (
-    <Card shadow="sm" padding="lg" radius="md" h={'100%'} withBorder>
+    <Card shadow='sm' padding='lg' radius='md' h={'100%'} withBorder>
       <Stack justify={'space-between'} h={'100%'}>
         <Dropzone
           onDrop={handleDrop}
@@ -46,7 +46,7 @@ export const UploadCard = () => {
           multiple={false}
           validator={fileValidator}
         >
-          <Group justify="center" gap="xl" mih={220} style={{ pointerEvents: 'none' }}>
+          <Group justify='center' gap='xl' mih={220} style={{ pointerEvents: 'none' }}>
             <Dropzone.Accept>
               <IconUpload
                 style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-blue-6)' }}
@@ -64,10 +64,10 @@ export const UploadCard = () => {
             </Dropzone.Idle>
 
             <div>
-              <Text size="xl" inline>
+              <Text size='xl' inline>
                 Drag VTU files here or click to select files
               </Text>
-              <Text size="sm" c="dimmed" inline mt={7}>
+              <Text size='sm' c='dimmed' inline mt={7}>
                 Attach as many files as you like, each file should not exceed 50Mb
               </Text>
             </div>
@@ -76,21 +76,21 @@ export const UploadCard = () => {
             {file ? (
               <Group>
                 <IconFile3d stroke={0.7} />
-                <Text size="sm">{file.name}</Text>
+                <Text size='sm'>{file.name}</Text>
               </Group>
             ) : null}
           </div>
           {errors ? (
             <div>
               {errors.map((error) => (
-                <Text size="sm" c="red">
+                <Text size='sm' c='red'>
                   File: {error.file} - {error.message}
                 </Text>
               ))}
             </div>
           ) : null}
         </Dropzone>
-        <Button mt="md" onClick={handleClick}>
+        <Button mt='md' onClick={handleClick}>
           Upload
         </Button>
       </Stack>

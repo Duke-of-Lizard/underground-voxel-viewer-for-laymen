@@ -6,7 +6,6 @@ type DataProviderProps = {
 }
 
 export const DataProvider = ({ children }: DataProviderProps) => {
-
   return (
     <DataContext.Provider
       value={{
