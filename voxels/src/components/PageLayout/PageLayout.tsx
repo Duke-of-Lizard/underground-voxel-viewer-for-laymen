@@ -5,7 +5,7 @@ import { Outlet } from 'react-router'
 export const PageLayout = () => {
   const theme = useMantineTheme()
   return (
-    <AppShell header={{ height: 60 }} padding='xl' withBorder={true}>
+    <AppShell header={{ height: 80 }} padding='xl' withBorder={true}>
       <AppShell.Header>
         <ErrorBoundary>
           <Header />
