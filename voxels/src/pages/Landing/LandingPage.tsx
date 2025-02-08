@@ -10,7 +10,7 @@ export const LandingPage = () => {
 
   useEffect(() => {
     if (!data) {
-      navigate('/upload')
+      navigate(`${import.meta.env.BASE_URL}upload`)
     }
   }, [data, navigate])
   return (
