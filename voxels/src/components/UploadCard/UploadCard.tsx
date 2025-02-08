@@ -3,6 +3,8 @@ import { Dropzone, FileRejection } from '@mantine/dropzone'
 import { IconFile3d, IconUpload, IconX } from '@tabler/icons-react'
 import { useState } from 'react'
 import { useAuth } from '@/contexts'
+import { useCreateNewModelMutation, useCreateNewVersionMutation, useCreateProjectMutation } from '@/queries'
+import { processFile } from '@/lib'
 
 interface FileError {
   code: string
@@ -14,9 +16,33 @@ export const UploadCard = () => {
   const [file, setFile] = useState<File | null>(null)
   const [errors, setErrors] = useState<FileError[] | null>(null)
   const { token, login } = useAuth()
+  const [createProject] = useCreateProjectMutation()
+  const [createNewVersion] = useCreateNewVersionMutation()
+  const [createNewModel] = useCreateNewModelMutation()
 
-  const handleClick = () => {
+  const handleClick = async () => {
     console.log('Upload file', file)
+    const { data } = await createProject({ variables: { input: { name: file?.name } } })
+    const projectId = data!.projectMutations.create.id as string
+    const result = await processFile({
+      file: file as File,
+      projectId,
+      token: token!,
+    })
+
+    const { data: versionData } = await createNewModel({ variables: { input: { projectId, name: file?.name || '' } } })
+    const modelId = versionData?.modelMutations.create.id as string
+    await createNewVersion({
+      variables: {
+        input: {
+          projectId: projectId!,
+          objectId: result.hash!,
+          message: 'Uploading VTU Model',
+          sourceApplication: 'VTU',
+          modelId,
+        },
+      },
+    })
   }
 
   const handleSpeckleLogin = () => {
