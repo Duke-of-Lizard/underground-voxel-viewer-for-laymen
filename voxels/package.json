@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 8000",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build --base=/underground-voxel-viewer-for-laymen/",
     "preview": "vite preview",
     "format:fix": "prettier --write src/",
     "format": "prettier --check src/",
