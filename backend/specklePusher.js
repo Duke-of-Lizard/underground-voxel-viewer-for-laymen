@@ -46,7 +46,7 @@ const z = reader.getDataVariable("z")
 //console.log(y)
 //console.log(z)
 let resistivity = reader.getDataVariable("resistivity");
-const probability_sensitive_clay = reader.getDataVariable(
+const probabilitySensitiveClay = reader.getDataVariable(
   "probability_sensitive_clay"
 );
 
@@ -69,14 +69,53 @@ for (let i_x=0; i_x < x.length; i_x++){
 
 
 const filteredPoints = indicesToKeep.map(index => points[index]);
+const filteredResistivity = indicesToKeep.map(index => resistivity[index]);
+const filteredProbability = indicesToKeep.map(index => probabilitySensitiveClay[index]);
 
 // console.log(points)
 // console.log(resistivity)
-console.log(filteredPoints)
+//console.log(filteredPoints)
 
 
 // --------------------
 
+
+const utm = require('utm');
+
+// Convert from UTM to WGS84
+function convertUtmToWgs84(easting, northing) {
+    // The utm.to_latlon function expects:
+    // easting, northing, zone number, zone letter (calculated automatically)
+    const coords = utm.toLatLon(easting, northing, zoneNum=32, zoneLetter="X");
+    
+    return {
+        latitude: coords.latitude,
+        longitude: coords.longitude
+    };
+}
+
+// // Convert from WGS84 to UTM
+// function convertWgs84ToUtm(latitude, longitude) {
+//     // The utm.from_latlon function returns:
+//     // { easting, northing, zoneNum, zoneLetter }
+//     return utm.from_latlon(latitude, longitude);
+// }
+const translatedPoints = []
+for (let i=0; i<filteredPoints.length;i++){
+    const xy = convertUtmToWgs84(filteredPoints[i].x, filteredPoints[i].y)
+    translatedPoints.push({
+        x: xy["longitude"],
+        y: xy["latitude"],
+        z: filteredPoints[i].z,
+        resistivity: filteredResistivity[i],
+        probability: filteredProbability[i]
+    }
+    )
+}
+
+console.log(translatedPoints)
+
+// ---------------------
 
 function convertListToJson(list) {
     return JSON.stringify(list);
@@ -94,7 +133,7 @@ const prettyJsonString = JSON.stringify(filteredPoints, null, 2); // The '2' ind
 //console.log(prettyJsonString);
 
 // Specify the file path where you want to save the JSON
-const filePathJson = './pts.json'; 
+const filePathJson = './pts.json';
 
 // Write the JSON string to the file
 fs.writeFile(filePathJson, jsonString, (err) => {
