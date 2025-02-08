@@ -25,6 +25,7 @@ jobs:
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
+        working-directory: ./voxels
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
