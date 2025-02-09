@@ -1,0 +1,1 @@
+export { ThreePage as default } from './ThreePage.tsx'

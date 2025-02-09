@@ -20,13 +20,17 @@
     "@mantine/core": "^7.16.2",
     "@mantine/dropzone": "^7.16.3",
     "@mantine/hooks": "^7.16.2",
+    "@react-three/drei": "^9.121.4",
+    "@react-three/fiber": "^8.17.14",
     "@tabler/icons-react": "^3.30.0",
+    "3d-tiles-renderer": "^0.4.4",
     "cesium": "^1.126.0",
     "leva": "^0.10.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router": "^7.1.5",
     "resium": "^1.18.3",
+    "three": "^0.173.0",
     "vite-tsconfig-paths": "^5.1.4"
   },
   "devDependencies": {
