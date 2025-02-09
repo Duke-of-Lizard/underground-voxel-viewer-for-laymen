@@ -51,10 +51,12 @@ The FRE16 datasets `data/FRE16` and `data/FRE16_south` were provided courtesy of
 - Paraview files like .vtk, .vtu, .vts
 - NetCDF 
 
+All datasets are in ERTS89 UTM zone 32 North (https://epsg.io/25832)
+
 They are related to an airborne electromagnetic survey of the FRE16 road and railway project performed in June 2016. 
 Models include an electrical resistivity model, and some interpreted products like depth to bedrock or 
 probability of sensitive glaciomarine clay (quick clay). More information about the project is described in
-this publication: https://doi.org/10.1016/j.enggeo.2021.106484 
+this publication: https://doi.org/10.1016/j.enggeo.2021.106484
 
 ![img.png](assets/images/example_resistivity_grid.png)
 
@@ -71,4 +73,43 @@ Original team members from the February 2025 hackathon were:
 - [Sasipa Vichitkraivin](https://www.linkedin.com/in/sasipa-vichitkraivin-78636b1b4/)
 - [Harmodio I. Barrios R.](https://www.linkedin.com/in/barriosrios/)
 
+
+# Useful links
+
+Just a dump of many of the resources we considered or referred to when researching and brainstorming solutions
+
+Construction of NetCDF files
+- helpful Python tutorial: https://nordatanet.github.io/NetCDF_in_Python_from_beginner_to_pro/intro.html
+- explanations on how to use projected coordinates 
+  - https://cfconventions.org/Data/cf-conventions/cf-conventions-1.6/build/cf-conventions.html#appendix-grid-mappings
+  - https://cfconventions.org/Data/cf-conventions/cf-conventions-1.7/build/ch05s06.html
+  - https://pro.arcgis.com/en/pro-app/latest/help/data/multidimensional/spatial-reference-for-netcdf-data.htm
+
+Generating 3D tiles in Cesium 
+- from Paraview VTK: https://www.kitware.com/3d-tiles-generation-using-vtk/
+- point tiling (catered to Japanese coordinate reference systems): https://github.com/MIERUNE/point-tiler/pulls
+- point tiling for large datasets: https://github.com/connormanning/entwine
+
+Generating 3D tiles in WebJS
+- https://github.com/NASA-AMMOS/3DTilesRendererJS
+
+Loading NetCDF into Cesium: 
+- https://github.com/RaymanNg/3D-Wind-Field/blob/ead08dd8b81737b8eefd7fd93d6341ae6d025dde/Cesium-3D-Wind/dataProcess.js
+
+
+Voxels example from Cesium:
+https://sandcastle.cesium.com/?src=Voxels.html
+https://github.com/CesiumGS/cesium/blob/main/Apps/Sandcastle/gallery/Voxels.html
+
+VTK.js + Cesium:
+VTK.js can be used for rendering scientific data, while Cesium provides 3D geographic context.
+To integrate both, you'd have to create Cesium compatible 3D tiles from VTK:
+https://docs.vtk.org/en/latest/modules/vtk-modules/IO/Cesium3DTiles/README.html
+
+VTK.js + MapLibre:
+MapLibre is a JavaScript library for interactive 3D maps. You can use VTK.js to render your scientific data and then overlay it on a 3D map created with MapLibre, which can include terrain and building data.
+https://github.com/Kitware/vtk-js/issues/645
+
+3D Buildings and Terrain from MapLibre:
+https://maplibre.org/maplibre-gl-js/docs/examples/
 
