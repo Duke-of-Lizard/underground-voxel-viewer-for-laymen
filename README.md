@@ -10,7 +10,7 @@ Unless your building floats or flies, you’re building on the ground, and you n
 Much progress has been made getting subsurface, site investigation data into civil engineering workflows. For instance,
 Look at this example of 3D solids being used to represent geological units underground: 
 
-![img.png](assets/example_solids_underground_model.png)
+![img.png](assets/images/example_solids_underground_model.png)
 
 However, models like these are lies! They fail to communicate two keys things: 
 - natural materials can be highly heterogenous
@@ -21,7 +21,7 @@ Voxel models are all the rage in nerdier circles, and have some key advantages:
 - They make certain types of calculations easier (e.g., excavation volumes for earthworks)
 - They provide nuanced input for numerical modelling, enabling probabilistic methods
 
-![img.png](assets/example-probability-quick-clay.png)
+![img.png](assets/images/example-probability-quick-clay.png)
 
 However, their widespread adoption in AEC is hindered by these hurdles: 
 - Few commonplace software packages lets user see voxel and structural data together
@@ -56,7 +56,7 @@ Models include an electrical resistivity model, and some interpreted products li
 probability of sensitive glaciomarine clay (quick clay). More information about the project is described in
 this publication: https://doi.org/10.1016/j.enggeo.2021.106484 
 
-![img.png](assets/example_resistivity_grid.png)
+![img.png](assets/images/example_resistivity_grid.png)
 
 # Contributors
 Original team members from the February 2025 hackathon were: 
