@@ -1,0 +1,24 @@
+{
+  "name": "geospacial-data-processing",
+  "version": "1.0.0",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Duke-of-Lizard/underground-voxel-viewer-for-laymen.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Duke-of-Lizard/underground-voxel-viewer-for-laymen/issues"
+  },
+  "homepage": "https://github.com/Duke-of-Lizard/underground-voxel-viewer-for-laymen#readme",
+  "description": "",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "netcdfjs": "^3.0.0",
+    "utm": "^1.1.1"
+  }
+}
