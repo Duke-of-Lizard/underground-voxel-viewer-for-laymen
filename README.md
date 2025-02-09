@@ -18,7 +18,8 @@ However, models like these are lies! They fail to communicate two keys things:
 
 Voxel models are all the rage in nerdier circles, and have some key advantages: 
 - They can communicate uncertainty and gradual changes in ground conditions more easily. 
-- They can 
+- They make certain types of calculations easier (e.g., excavation volumes for earthworks)
+- They provide nuanced input for numerical modelling, enabling probabilistic methods
 
 
 # solutions
@@ -31,6 +32,20 @@ Make the data available in a popular AEC circles
 
 ## NetCDF transform 
 for use of commercial software
+
+
+# test datasets
+provided courtesy of EMerald Geomodelling AS [web](https://www.emerald-geomodelling.com/) 
+[github](https://github.com/emerald-geomodelling) and Bane NOR [web](https://www.banenor.no/en/). 
+
+In various formats 
+- Paraview files like .vtk, .vtu, .vts
+- NetCDF 
+
+Related to an airborne electromagnetic survey of the FRE16 road and railway project performed in June 2016. 
+Models include an electrical resistivity model, and some interpreted products like depth to bedrock or 
+probability of sensitive glaciomarine clay (quick clay). More information about the project is described in
+this publication: https://doi.org/10.1016/j.enggeo.2021.106484 
 
 # Contributors
 Original team members from the February 2025 hackathon were: 
