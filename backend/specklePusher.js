@@ -125,7 +125,7 @@ function convertListToJson(list) {
   return JSON.stringify(list);
 }
 
-const jsonString = convertListToJson(filteredPoints);
+const jsonString = convertListToJson(translatedPoints);
 // console.log(jsonString); // Output the JSON string
 
 // To demonstrate parsing it back:
@@ -133,14 +133,14 @@ const parsedList = JSON.parse(jsonString);
 // console.log(parsedList); // Output the JavaScript object
 
 //  If you want formatted/pretty printed JSON:
-const prettyJsonString = JSON.stringify(filteredPoints, null, 2); // The '2' indents with 2 spaces
+const prettyJsonString = JSON.stringify(translatedPoints, null, 2); // The '2' indents with 2 spaces
 //console.log(prettyJsonString);
 
 // Specify the file path where you want to save the JSON
 const filePathJson = "./pts.json";
 
 // Write the JSON string to the file
-fs.writeFile(filePathJson, jsonString, (err) => {
+fs.writeFile(filePathJson, prettyJsonString, (err) => {
   if (err) {
     console.error("Error writing to file:", err);
   } else {
