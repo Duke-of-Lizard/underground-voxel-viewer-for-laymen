@@ -39,7 +39,7 @@ Lightweight 3D web viewer with georeferencing and sattelite imagery that shows c
 Make the data available in a popular AEC circles
 
 ## NetCDF transform 
-for use of commercial software
+for use of commercial software like ArcGIS
 
 ## other unexplored routes 
 
