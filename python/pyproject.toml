@@ -5,9 +5,8 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "cfchecker>=4.1.0",
-    "cfunits>=3.3.7",
     "compliance-checker>=5.1.1",
-    "nctoolkit>=1.2.0",
+    "geopandas>=1.0.1",
+    "rioxarray>=0.18.2",
     "xarray>=2025.1.2",
 ]

@@ -1,44 +1,83 @@
+import pprint
 from pathlib import Path
 
-import numpy as np
-import pandas as pd
 import xarray as xr
+from pyproj import CRS
 
 
 def main():
+    epsg_25832 = CRS(25832)
+    proj_cf_crs_dict = epsg_25832.to_cf()
+
+    data_path = Path.cwd().parent / "data" / "FRE16" / "netcdf"
     netcdf_file = (
-        Path.cwd().parent
-        / "data"
-        / "FRE16"
-        / "netcdf"
-        / "2025-02-08-FRE16-sensitive_clay_probability-subset.nc"
+        data_path
+        # / "2025-02-08-FRE16-sensitive_clay_probability-subset.nc"
+        / "2025-02-08-FRE16-sensitive_clay_probability.nc"
     )
     xrds = xr.open_dataset(netcdf_file)
-    xrds["z"].attrs["positive"] = "up"
+    xrds["epsg_25832"].attrs["wkid"] = 25832
+    xrds["epsg_25832"].attrs["authority"] = "EPSG"
 
-    xx, yy, zz = np.meshgrid(xrds["x"], xrds["y"], xrds["z"], indexing="ij")
+    # xrds["z"].attrs["positive"] = "up"
 
-    xyz_df = pd.DataFrame(
-        {
-            "x": xx.flatten() - 567214.6875,
-            "y": yy.flatten() - 6664015.5,
-            "z": zz.flatten(),
-            "resistivity": xrds["resistivity"].values.flatten(),
-            "probability_sensitive_clay": xrds[
-                "probability_sensitive_clay"
-            ].values.flatten(),
-        }
-    )
-    xyz_df = xyz_df.dropna(subset=["resistivity"])
+    # xrds = xrds.rio.write_crs(
+    #     "EPSG:25832", grid_mapping_name="epsg_25832", inplace=True
+    # )
+    # xrds["resistivity"].attrs["grid_mapping"] = "epsg_25832"
+    # xrds["probability_sensitive_clay"].attrs["grid_mapping"] = "epsg_25832"
 
-    xyz_df.to_csv(Path.cwd().parent / "data" / "FRE16" / "xyz.csv", index=False)
-
+    # rio_cf_crs_dict = xrds["epsg_25832"].attrs
     # print(xrds)
-    print(xrds["x"].min().item())
-    print(xrds["y"].min().item())
+    # xrds = xrds.reset_coords("epsg_25832", drop=True)
+    # xrds["epsg_25832"].attrs = rio_cf_crs_dict
+
+    myencoding = {
+        "x": {
+            "dtype": "float32",
+            "_FillValue": None,  # Coordinate variables should not have fill values.
+        },
+        "y": {
+            "dtype": "float32",
+            "_FillValue": None,  # Coordinate variables should not have fill values.
+        },
+        "z": {
+            "dtype": "float32",
+            "_FillValue": None,  # Coordinate variables should not have fill values.
+        },
+        "probability_sensitive_clay": {
+            "dtype": "float32",
+            "_FillValue": -9999,
+        },
+        # 'proba_2': {
+        #     'dtype': 'float32',
+        #     '_FillValue': -9999,
+        #     },
+        "resistivity": {
+            "dtype": "float32",
+            "_FillValue": -9999,
+        },
+        # 'resistivity_dz':{
+        #     'dtype': 'float32',
+        #     '_FillValue': -9999,
+        # },
+        # 'resistivity_dz2': {
+        #     'dtype': 'float32',
+        #     '_FillValue': -9999,
+        # },
+    }
+    xrds.to_netcdf(
+        data_path / "2025-02-08-FRE16-sensitive_clay_probability_wkid.nc",
+        encoding=myencoding,
+    )
+
+    print(xrds)
+    pprint.pprint(xrds["epsg_25832"].attrs)
+    # print(xrds["x"].min().item())
+    # print(xrds["y"].min().item())
     # print(xrds["y"].attrs)
     # print(xrds["z"].attrs)
-    # print(xrds["resistivity"].attrs)
+    print(xrds["resistivity"].attrs)
     # print(xrds["probability_sensitive_clay"].attrs)
     # print(xrds["grid_mapping"].attrs)
 
