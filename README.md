@@ -21,6 +21,8 @@ Voxel models are all the rage in nerdier circles, and have some key advantages:
 - They make certain types of calculations easier (e.g., excavation volumes for earthworks)
 - They provide nuanced input for numerical modelling, enabling probabilistic methods
 
+![img.png](assets/example-probability-quick-clay.png)
+
 However, their widespread adoption in AEC is hindered by these hurdles: 
 - Few commonplace software packages lets user see voxel and structural data together
 - Programs that do show them can be complicated to use, and may not show voxel with geospatial context (e.g., satelite images, structural geometry)
@@ -53,6 +55,8 @@ They are related to an airborne electromagnetic survey of the FRE16 road and rai
 Models include an electrical resistivity model, and some interpreted products like depth to bedrock or 
 probability of sensitive glaciomarine clay (quick clay). More information about the project is described in
 this publication: https://doi.org/10.1016/j.enggeo.2021.106484 
+
+![img.png](assets/example_resistivity_grid.png)
 
 # Contributors
 Original team members from the February 2025 hackathon were: 
