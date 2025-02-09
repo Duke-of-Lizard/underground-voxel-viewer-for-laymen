@@ -1,3 +1,4 @@
+//import { getMinMaxByKey, getNormalizedData } from '../../voxels/src/utils/getMinMax';
 const fs = require("fs");
 const { NetCDFReader } = require("netcdfjs");
 
@@ -21,6 +22,7 @@ const tilesetTemplate = {
     },
   },
 };
+
 
 // Read the file as a Buffer
 const data = fs.readFileSync(filePath);
@@ -120,12 +122,63 @@ for (let i = 0; i < filteredPoints.length; i++) {
 console.log(translatedPoints);
 
 // ---------------------
+function findMinMax(points, attribute) {
+  // Check if points exists and is an array
+  if (!Array.isArray(points)) {
+      throw new Error('Input must be an array');
+  }
+
+  // Check if the array is empty
+  if (points.length === 0) {
+      return {
+          min: null,
+          max: null
+      };
+  }
+
+  // Check if the first element has the requested attribute
+  if (!(attribute in points[0])) {
+      throw new Error(`Attribute "${attribute}" not found in points`);
+  }
+
+  return points.reduce((acc, point) => {
+      return {
+          min: Math.min(acc.min, point[attribute]),
+          max: Math.max(acc.max, point[attribute])
+      };
+  }, {
+      min: points[0][attribute],
+      max: points[0][attribute]
+  });
+}
+
+const resistivityMin = findMinMax(translatedPoints, "resistivity")["min"]
+const resistivityMax = findMinMax(translatedPoints, "resistivity")["max"]
+const probabilityMin = findMinMax(translatedPoints, "probability")["min"]
+const probabilityMax = findMinMax(translatedPoints, "probability")["max"]
+
+const dataDict = {
+  data: translatedPoints,
+  meta: {
+    variables: {
+      resistivity: {
+        min: resistivityMin,
+        max: resistivityMax,
+      },
+      probability: {
+        min: probabilityMin,
+        max: probabilityMax,
+      },
+    }
+  }
+}
+// ---------------------
 
 function convertListToJson(list) {
   return JSON.stringify(list);
 }
 
-const jsonString = convertListToJson(translatedPoints);
+const jsonString = convertListToJson(dataDict);
 // console.log(jsonString); // Output the JSON string
 
 // To demonstrate parsing it back:
@@ -133,7 +186,7 @@ const parsedList = JSON.parse(jsonString);
 // console.log(parsedList); // Output the JavaScript object
 
 //  If you want formatted/pretty printed JSON:
-const prettyJsonString = JSON.stringify(translatedPoints, null, 2); // The '2' indents with 2 spaces
+const prettyJsonString = JSON.stringify(dataDict, null, 2); // The '2' indents with 2 spaces
 //console.log(prettyJsonString);
 
 // Specify the file path where you want to save the JSON
